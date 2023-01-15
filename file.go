@@ -7,7 +7,7 @@ import (
 	"os"
 )
 
-func writeFile(filename string, content string) {
+func WriteFile(filename string, content string) {
 	file, err := os.OpenFile(filename, os.O_WRONLY|os.O_CREATE, 0666)
 	if err != nil {
 		log.Println(err)
@@ -17,7 +17,7 @@ func writeFile(filename string, content string) {
 	file.Sync()
 }
 
-func appendFile(filename string, text string) {
+func AppendFile(filename string, text string) {
 	f, err := os.OpenFile(filename, os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 	if err != nil {
 		log.Println(err)
@@ -30,7 +30,7 @@ func appendFile(filename string, text string) {
 	f.Sync()
 }
 
-func fileCountLine(filename string) (int, error) {
+func FileCountLine(filename string) (int, error) {
 	file, err := os.Open(filename)
 	if err != nil {
 		log.Println(err)
@@ -51,7 +51,7 @@ func fileCountLine(filename string) (int, error) {
 	}
 }
 
-func readFile(filename string) string {
+func ReadFile(filename string) string {
 	file, err := os.Open(filename)
 	if err != nil {
 		log.Println(err)
