@@ -29,7 +29,7 @@ func (c *Config) Init() {
 	}
 }
 
-func sendMsgText(text string) {
+func SendMsgText(text string) {
 	bot, err := tgbotapi.NewBotAPI(config.Token)
 	if err != nil {
 		log.Println(err)
