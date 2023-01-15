@@ -8,6 +8,7 @@ import (
 )
 
 var config Config
+var bot *tgbotapi.BotAPI
 
 func init() {
 	config.Init()
@@ -22,20 +23,28 @@ func (c *Config) Init() {
 	yamlFile, err := ioutil.ReadFile("telegram-config.yaml")
 	if err != nil {
 		log.Printf("yamlFile.Get err   #%v ", err)
+		return
 	}
 	err = yaml.Unmarshal(yamlFile, c)
 	if err != nil {
 		log.Printf("Unmarshal: %v", err)
+		return
 	}
+	b, err := tgbotapi.NewBotAPI(config.Token)
+	if err != nil {
+		log.Println(err)
+		return
+	}
+	bot = b
 }
 
 func SendMsgText(text string) {
-	bot, err := tgbotapi.NewBotAPI(config.Token)
-	if err != nil {
-		log.Println(err)
+	if bot == nil {
+		log.Println("bot is nil")
+		return
 	}
 	message := tgbotapi.NewMessage(config.ChatId, text)
-	_, err = bot.Send(message)
+	_, err := bot.Send(message)
 	if err != nil {
 		log.Println(err)
 	}
