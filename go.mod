@@ -1,4 +1,4 @@
-module  github.com/eth-collision/eth-collision-tool
+module github.com/eth-collision/eth-collision-tool
 
 go 1.17
 
