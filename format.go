@@ -11,3 +11,8 @@ func FormatBigInt(n big.Int) string {
 	p := message.NewPrinter(language.English)
 	return p.Sprintf("%d", i)
 }
+
+func FormatInt(n int64) string {
+	p := message.NewPrinter(language.English)
+	return p.Sprintf("%d", n)
+}
