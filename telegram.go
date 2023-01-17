@@ -5,6 +5,7 @@ import (
 	"gopkg.in/yaml.v2"
 	"io/ioutil"
 	"log"
+	"net/http"
 )
 
 var config Config
@@ -17,6 +18,7 @@ func init() {
 type Config struct {
 	Token  string `yaml:"token"`
 	ChatId int64  `yaml:"chat-id"`
+	Url    string `yaml:"url"`
 }
 
 func (c *Config) Init() {
@@ -30,12 +32,15 @@ func (c *Config) Init() {
 		log.Printf("Unmarshal: %v", err)
 		return
 	}
-	b, err := tgbotapi.NewBotAPI(config.Token)
+	if c.Url != "" {
+		bot, err = tgbotapi.NewBotAPIWithClient(c.Token, c.Url, &http.Client{})
+	} else {
+		bot, err = tgbotapi.NewBotAPI(c.Token)
+	}
 	if err != nil {
 		log.Println(err)
 		return
 	}
-	bot = b
 }
 
 func SendMsgText(text string) {
