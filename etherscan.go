@@ -35,7 +35,8 @@ func (c *EthScanCfg) Init() {
 
 func GetBalanceFromEthScan(address string) *big.Int {
 	if ethScancfg.Token == "" {
-		return big.NewInt(0)
+		// if config empty, pass check
+		return big.NewInt(1)
 	}
 	url := fmt.Sprintf("https://api.etherscan.io/api?module=account&action=balance&address=%s&tag=latest&apikey=%s",
 		address, ethScancfg.Token)
